@@ -1,7 +1,6 @@
 import requests
 import urllib.request
 import time
-import csv
 from bs4 import BeautifulSoup
 
 # Set the URL you want to webscrape from
@@ -26,14 +25,11 @@ for link in soup.findAll('a', href=True):
         tr_list = tr_list[1:]
         for tr in tr_list:
           td = tr.findAll('td')
-          if td[0].string is not None and td[1].string is not None and td[2].string is not None and td[3].string is not None:
-            date = td[0].string
-            category = td[1].string
-            puzzle = td[2].string
-            letters = td[3].string
-            write_string = date + "," + category + "," + puzzle + "," + letters
-            text_file = open("angelfire.csv", "a+")
-            text_file.write(write_string +  '\n')
-            text_file.close()
-            print("written")
-      time.sleep(1)
+          write_string = ""
+          for cell in td:
+            if cell.string is not None:
+              write_string += cell.string.replace(',','')+','
+          text_file = open("angelfire.csv", "a+")
+          text_file.write(write_string[:-1] +  '\n')
+          text_file.close()
+          print("written")

@@ -32,13 +32,18 @@ def print_barh_graph(series,savename="image.png"):
   plt.gca().invert_yaxis()
   plt.savefig(savename)
 
-for category in df['Category'].unique():
-  counter = Counter()
-  puzzles = df.loc[df['Category'] == category, 'Puzzle']
-  for row in puzzles:
-    counter.update(row)
-  count_list = list(counter.items())
-  count_list.sort()
-  if count_list[0][0] == " ":
-    del count_list[0]
-  print(count_list)
+def print_letter_occurence_per_puzzle():
+  for category in df['Category'].unique():
+    counter = Counter()
+    puzzles = df.loc[df['Category'] == category, 'Puzzle']
+    for row in puzzles:
+      counter.update(row)
+    count_list = list(counter.items())
+    count_list.sort()
+    if count_list[0][0] == " ":
+      del count_list[0]
+    series = pandas.Series((int(i[1]) for i in count_list), index=(i[0] for i in count_list))
+    series = series.rename(category)
+    print_barh_graph(series,savename=series.name+".png")
+
+print_letter_occurence_per_puzzle()

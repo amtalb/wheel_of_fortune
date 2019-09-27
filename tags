@@ -3,4 +3,5 @@ category_occurence	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def cat
 df	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^df = pandas.read_csv('.\/data\/clean_angelfire.csv')$/;"	v	language:Python
 guessed_letter_occurence	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def guessed_letter_occurence():$/;"	f	language:Python
 print_barh_graph	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def print_barh_graph(series,savename="image.png"):$/;"	f	language:Python
+print_letter_occurence_per_puzzle	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def print_letter_occurence_per_puzzle():$/;"	f	language:Python
 puzzle_letter_occurence	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def puzzle_letter_occurence():$/;"	f	language:Python

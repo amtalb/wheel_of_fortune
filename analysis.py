@@ -1,5 +1,4 @@
 import pandas
-import seaborn as sns
 import matplotlib.pyplot as plt
 from collections import Counter
 
@@ -30,7 +29,7 @@ def puzzle_letter_occurence():
 def print_barh_graph(series,savename="image.png"):
   series.plot.barh()
   plt.gca().invert_yaxis()
-  plt.savefig(savename)
+  plt.savefig('data/'+savename)
 
 def print_letter_occurence_per_puzzle():
   for category in df['Category'].unique():

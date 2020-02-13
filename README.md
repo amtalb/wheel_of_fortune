@@ -16,7 +16,7 @@ Data was scraped from the Wheel of Fortune Bonus Question Compendium repository 
 ### Results & Conclusion
 Here is the distribution of all categories and all letters contained in those puzzles:
 ![categories](graphs/categories.png)
-![letter](graphs/letters.png)
+![letter](graphs/letters.png)  
 This shows that the best letters to pick (other than the provided R S T L N E) are G H and D for your consonants and O for your vowel.
 
 Letter distribution by category is shown in the [graphs](graphs/) directory.

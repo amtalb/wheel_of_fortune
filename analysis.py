@@ -1,3 +1,12 @@
+# TODO fade or eliminate given letters (RSTLNE) in graphs
+# TODO highlight most likely letters in graphs
+# TODO color vowels differently in graphs
+# TODO analyze best three consonant/one vowel combo to guess
+#   not just most occuring three consonants/one vowel
+# TODO analyze based on category, note weird categories in README
+# TODO compare actual guessed letters with best letters
+
+
 import pandas
 import matplotlib.pyplot as plt
 from collections import Counter

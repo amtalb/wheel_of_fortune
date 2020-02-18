@@ -1,7 +1,11 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
 category_occurence	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def category_occurence():$/;"	f	language:Python
 df	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^df = pandas.read_csv('.\/data\/clean_angelfire.csv')$/;"	v	language:Python
+get_most_frequent_consonants	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def get_most_frequent_consonants(counter):$/;"	f	language:Python
+get_most_frequent_vowel	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def get_most_frequent_vowel(counter):$/;"	f	language:Python
 guessed_letter_occurence	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def guessed_letter_occurence():$/;"	f	language:Python
-print_barh_graph	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def print_barh_graph(series,savename="image.png"):$/;"	f	language:Python
+print_barh_graph	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):$/;"	f	language:Python
 print_letter_occurence_per_puzzle	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def print_letter_occurence_per_puzzle():$/;"	f	language:Python
+print_overall_letter_occurence	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def print_overall_letter_occurence():$/;"	f	language:Python
 puzzle_letter_occurence	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^def puzzle_letter_occurence():$/;"	f	language:Python
+remove_counter_character	/home/amtalb/Downloads/wheel_of_fortune/analysis.py	/^  def remove_counter_character(char):$/;"	f	language:Python	function:print_letter_occurence_per_puzzle

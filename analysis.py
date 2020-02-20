@@ -12,18 +12,18 @@ from collections import Counter
 
 df = pandas.read_csv('./data/clean_angelfire.csv')
 
-def category_occurence():
+def category_occurrence():
   count_list = df['Category'].value_counts()
   series = pandas.Series(count_list)
 
   return series
 
-def guessed_letter_occurence():
+def guessed_letter_occurrence():
   letters = df['Letters'].str.split(" ", n=3, expand=True)
   letters = letters.dropna()
   print(letters.stack().value_counts())
 
-def puzzle_letter_occurence():
+def print_overall_letter_occurrence():
   puzzles = df['Puzzle']
   alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
   count_list = []
@@ -31,8 +31,7 @@ def puzzle_letter_occurence():
   for letter in alphabet:
     count_list.append(puzzles.str.count(letter).sum())
 
-  series = pandas.Series(count_list, index=alphabet)
-  return series
+  print_barh_graph(alphabet, count_list, savename="Letters")
 
 def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
   # set the colors of the bars
@@ -55,16 +54,19 @@ def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
   # plot the plot
   plt.barh(keys,values,color=bar_colors)
 
+  # set the title
+  plt.title(savename, fontsize=18)
+
   # hide the top and right spines
   ax.spines['top'].set_visible(False)
   ax.spines['right'].set_visible(False)
 
   # set prettier bounds on y axis
-  ax.set_ylim((-1, 20))
+  ax.set_ylim((-1, len(keys)))
   y_placeholder = list(range(0,len(keys)))
   ax.set_yticks(y_placeholder)
   ax.set_yticklabels(keys)
-  ax.spines['left'].set_bounds(0, 19)
+  ax.spines['left'].set_bounds(0, (len(keys)-1))
 
   # set prettier bounds on x axis
   ax.spines['bottom'].set_smart_bounds(True)
@@ -75,15 +77,13 @@ def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
 
   # if this is a category plot, add a text with the 3 most common consonants and the most common vowel
   if len(most_frequent_l)>0: 
-    plt.text(0.75, 1.02, 'Most Frequent\n' + str(most_frequent_l), transform=plt.gca().transAxes)
+    plt.text(0.85, 1.02, 'Most Frequent\n' + str(most_frequent_l), transform=plt.gca().transAxes)
 
   # invert the axis so A is on top and Z is on the bottom
   plt.gca().invert_yaxis()
 
-  plt.savefig('graphs/'+savename)
-  
-def print_overall_letter_occurence():
-  series = puzzle_letter_occurence()
+  plt.savefig('graphs/'+savename+".png")
+  plt.close()
 
 def get_most_frequent_consonants(counter):
   consonants = ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z']
@@ -112,7 +112,7 @@ def get_most_frequent_vowel(counter):
   
   return top_vowel
 
-def print_letter_occurence_per_puzzle():
+def print_letter_occurrence_per_puzzle():
   def remove_counter_character(char):
     if char in counter:
       counter.pop(char)
@@ -144,7 +144,9 @@ def print_letter_occurence_per_puzzle():
     count_list.sort()
     keys = [i[0] for i in count_list]
     values = [i[1] for i in count_list]
-    print_barh_graph(keys,values,savename=category+".png",most_frequent_l=most_frequent_l)
+    print_barh_graph(keys,values,savename=category,most_frequent_l=most_frequent_l)
 
-#print_overall_letter_occurence()
-print_letter_occurence_per_puzzle()
+#print_overall_letter_occurrence()
+#print_category_occurrence()
+#print_letter_occurrence_per_puzzle()
+category_occurrence()

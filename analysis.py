@@ -1,7 +1,6 @@
 # TODO analyze based on category, note weird categories in README
 # TODO compare actual guessed letters with best letters
 # TODO write about best 3 consonants/1 vowel to guess in README
-# TODO make graphs prettier
 # TODO write functions to print categories and letters
 # TODO organize code
 # TODO comment
@@ -36,20 +35,51 @@ def puzzle_letter_occurence():
   return series
 
 def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
-  plt.clf()
-  light_blue = [0,0,1,0.15]
-  bar_colors = ['blue']*20
+  # set the colors of the bars
+  # vowels are colored lighter
+  light_blue = '#00BFFF' 
+  bar_colors = ['#483D8B']*20
   bar_colors[0] = light_blue
   bar_colors[7] = light_blue
   bar_colors[11] = light_blue
   bar_colors[14] = light_blue
 
+  # instantiate figure and axes
+  # also set figure size
+  fig, ax = plt.subplots(figsize=(8,6))
+
+  # set the axis labels
+  ax.set_xlabel('Occurrences', fontsize=15)
+  ax.set_ylabel('Letter', fontsize=15)
+
+  # plot the plot
   plt.barh(keys,values,color=bar_colors)
 
+  # hide the top and right spines
+  ax.spines['top'].set_visible(False)
+  ax.spines['right'].set_visible(False)
+
+  # set prettier bounds on y axis
+  ax.set_ylim((-1, 20))
+  y_placeholder = list(range(0,len(keys)))
+  ax.set_yticks(y_placeholder)
+  ax.set_yticklabels(keys)
+  ax.spines['left'].set_bounds(0, 19)
+
+  # set prettier bounds on x axis
+  ax.spines['bottom'].set_smart_bounds(True)
+
+  # adjust placement of axes
+  ax.spines['bottom'].set_position(('axes', 0.02))
+  ax.spines['left'].set_position(('axes', -0.01))
+
+  # if this is a category plot, add a text with the 3 most common consonants and the most common vowel
   if len(most_frequent_l)>0: 
     plt.text(0.75, 1.02, 'Most Frequent\n' + str(most_frequent_l), transform=plt.gca().transAxes)
 
+  # invert the axis so A is on top and Z is on the bottom
   plt.gca().invert_yaxis()
+
   plt.savefig('graphs/'+savename)
   
 def print_overall_letter_occurence():

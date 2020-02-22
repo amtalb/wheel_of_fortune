@@ -3,6 +3,7 @@
 # TODO write functions to print categories and letters
 # TODO organize code
 # TODO comment
+# TODO remove spaces from image names
 
 
 import pandas
@@ -24,7 +25,7 @@ def guessed_letter_occurrence():
 
 def print_overall_letter_occurrence():
   puzzles = df['Puzzle']
-  alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+  alphabet = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K', 'M', 'O', 'P', 'Q', 'U', 'V', 'W', 'X', 'Y', 'Z']
   count_list = []
 
   for letter in alphabet:
@@ -35,13 +36,12 @@ def print_overall_letter_occurrence():
 def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
   # set the colors of the bars
   # vowels are colored lighter if it is a category graph
-  if len(most_frequent_l)>0:
-    light_blue = '#00BFFF' 
-    bar_colors = ['#483D8B']*20
-    bar_colors[0] = light_blue
-    bar_colors[7] = light_blue
-    bar_colors[11] = light_blue
-    bar_colors[14] = light_blue
+  bar_colors = ['#483D8B']*20
+  light_blue = '#00BFFF' 
+  bar_colors[0] = light_blue
+  bar_colors[7] = light_blue
+  bar_colors[11] = light_blue
+  bar_colors[14] = light_blue
 
   # instantiate figure and axes
   # also set figure size
@@ -144,9 +144,13 @@ def print_letter_occurrence_per_puzzle():
     count_list.sort()
     keys = [i[0] for i in count_list]
     values = [i[1] for i in count_list]
+
+    # remove spaces from save name
+    category = category.replace(' ', '_')
+
     print_barh_graph(keys,values,savename=category,most_frequent_l=most_frequent_l)
 
-#print_overall_letter_occurrence()
+print_overall_letter_occurrence()
 #print_category_occurrence()
-#print_letter_occurrence_per_puzzle()
-category_occurrence()
+print_letter_occurrence_per_puzzle()
+#category_occurrence()

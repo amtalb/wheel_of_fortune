@@ -15,10 +15,10 @@ Data was scraped from the Wheel of Fortune Bonus Question Compendium repository 
 
 ### Results & Conclusion
 Here is the distribution of all categories and all letters contained in those puzzles:
-![categories](graphs/categories.png)
+![categories](graphs/categories.png)  
 As one can see, the distribution is pretty top heavy, with the majority of the Bonus Puzzles being either a 'Thing'/'Things' or 'Phrase'. However, there are a significant amount of other rarely occurring categories.
-![letter](graphs/letters.png)  
-This shows that the best letters to pick overall (other than the provided *R*, *S*, *T*, *L*, *N*, and *E*) are *G*, *H*, and *D* for the consonants and *O* for the vowel. However, according to [Lexico](https://www.lexico.com/explore/which-letters-are-used-most)the most common letters in the English language (excluding *R*, *S*, *T*, *L*, *N*, and *E*) are *C*, *D*, and *P* for the consonants and *A* as the vowel. This goes to show that the producers of the show are choosing puzzles that are intentionally difficult to guess which is surprising to absolutely no one. In fact, out of the most commonly occuring consonants in the Bonus Puzzle mentioned above, none are even in the top half of frequency in the English language, while the most commonly occuring vowel *O* is only the 4th most common vowel! (reminder that there are only 5 vowels)
+![letter](graphs/Letters.png)  
+This shows that the best letters to pick overall (other than the provided *R*, *S*, *T*, *L*, *N*, and *E*) are *G*, *H*, and *D* for the consonants and *O* for the vowel. However, according to [Lexico](https://www.lexico.com/explore/which-letters-are-used-most) the most common letters in the English language (excluding *R*, *S*, *T*, *L*, *N*, and *E*) are *C*, *D*, and *P* for the consonants and *A* as the vowel. This goes to show that the producers of the show are choosing puzzles that are intentionally difficult to guess which is surprising to absolutely no one. In fact, out of the most commonly occuring consonants in the Bonus Puzzle mentioned above, none are even in the top half of frequency in the English language, while the most commonly occuring vowel *O* is only the 4th most common vowel! (reminder that there are only 5 vowels)
 
 
 

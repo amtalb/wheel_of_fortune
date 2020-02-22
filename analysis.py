@@ -1,6 +1,5 @@
 # TODO analyze based on category, note weird categories in README
 # TODO compare actual guessed letters with best letters
-# TODO write about best 3 consonants/1 vowel to guess in README
 # TODO write functions to print categories and letters
 # TODO organize code
 # TODO comment
@@ -35,13 +34,14 @@ def print_overall_letter_occurrence():
 
 def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
   # set the colors of the bars
-  # vowels are colored lighter
-  light_blue = '#00BFFF' 
-  bar_colors = ['#483D8B']*20
-  bar_colors[0] = light_blue
-  bar_colors[7] = light_blue
-  bar_colors[11] = light_blue
-  bar_colors[14] = light_blue
+  # vowels are colored lighter if it is a category graph
+  if len(most_frequent_l)>0:
+    light_blue = '#00BFFF' 
+    bar_colors = ['#483D8B']*20
+    bar_colors[0] = light_blue
+    bar_colors[7] = light_blue
+    bar_colors[11] = light_blue
+    bar_colors[14] = light_blue
 
   # instantiate figure and axes
   # also set figure size

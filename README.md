@@ -23,11 +23,11 @@ Now let's look at the occurrence of letters in all Bonus Puzzles:
 This shows that the best letters to pick overall (other than the provided *R*, *S*, *T*, *L*, *N*, and *E*) are *G*, *H*, and *D* for the consonants and *O* for the vowel. However, according to [Lexico](https://www.lexico.com/explore/which-letters-are-used-most) the most common letters in the English language (excluding *R*, *S*, *T*, *L*, *N*, and *E*) are *C*, *D*, and *P* for the consonants and *A* as the vowel. This goes to show that the producers of the show are choosing puzzles that are intentionally difficult to guess which is surprising to absolutely no one. In fact, out of the most commonly occuring consonants in the Bonus Puzzle mentioned above, none are even in the top half of frequency in the English language, while the most commonly occuring vowel *O* is only the 4th most common vowel! (reminder that there are only 5 vowels)
 
 However, there are some weird categories that are harder to prepare for. Take the 'Fictional Character' category for example:
-![Fictional Character](graphs/Fictional Character.png)  
+![Fictional Character]('graphs/Fictional Character.png')  
 In this category, you are better off choosing *B*, *M*, *Y*, and *A* which is a little bizarre.
 
 If you are lucky, you will get a slightly easier category like 'What Are You Doing?':
-![What Are You Doing?](graphs/What Are You Doing?.png)  
+![What Are You Doing?]('graphs/What Are You Doing?.png')  
 In this category, you can almost be sure that one of the words will be ending in "-ing", which is reflected in the graph. This means you can save your guesses for other letters.
 
 Letter distribution for all categories is shown in the [graphs](graphs/) directory.

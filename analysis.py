@@ -1,25 +1,8 @@
-# TODO compare actual guessed letters with best letters
-# TODO write functions to print categories and letters
-# TODO comment
-
-
 import pandas
 import matplotlib.pyplot as plt
 from collections import Counter
 
 df = pandas.read_csv('./data/clean_angelfire.csv')
-
-def category_occurrence():
-  count_list = df['Category'].value_counts()
-  series = pandas.Series(count_list)
-
-  return series
-
-def guessed_letter_occurrence():
-  letters = df['Letters'].str.split(" ", n=3, expand=True)
-  letters = letters.dropna()
-  print(letters.stack().value_counts())
-
 
 def print_barh_graph(keys,values,savename="image.png",bar_colors='black',label=None):
   # instantiate figure and axes
@@ -66,13 +49,16 @@ def print_barh_graph(keys,values,savename="image.png",bar_colors='black',label=N
 
 def get_most_frequent_consonants(counter):
   consonants = ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z']
+  # grab top ten most common letters (consonants and vowels)
   most_frequent_l = Counter(counter).most_common(10)
   top_3_consonants = []
   counter = 0
   
   for letter in most_frequent_l:
+    # once 3 are found, we are done
     if counter > 2:
       break
+    # loop through adding top consonants to list
     if letter[0] in consonants:
       top_3_consonants.append(letter[0])
       counter += 1
@@ -81,15 +67,28 @@ def get_most_frequent_consonants(counter):
 
 def get_most_frequent_vowel(counter):
   vowels = ['A','E','I','O','U']
+  # grab top ten most common letters (consonants and vowels)
   most_frequent_l = Counter(counter).most_common(10)
   top_vowel = []
 
+  # loop through until first vowel is found, it is the most frequent vowel
   for letter in most_frequent_l:
     if letter[0] in vowels:
       top_vowel.append(letter[0])
       break
   
   return top_vowel
+
+# prints a graph showing which categories are most common
+def print_category_occurrence():
+  # pandas has a nifty function to do all the counting for me
+  count_list = df['Category'].value_counts()
+  # get keys
+  keys = count_list.keys()
+  # get values
+  values = count_list.values
+
+  print_barh_graph(keys, values, savename="Categories", bar_colors=['#483D8B'])
 
 # prints a graph that is the sum of all letter occurrences in all puzzles
 def print_overall_letter_occurrence():
@@ -178,7 +177,6 @@ def print_letter_occurrence_per_puzzle():
     
     print_barh_graph(keys,values,savename=category,bar_colors=bar_colors,label=label)
 
+print_category_occurrence()
 print_overall_letter_occurrence()
-#print_category_occurrence()
 print_letter_occurrence_per_puzzle()
-#category_occurrence()

@@ -17,7 +17,9 @@ def print_barh_graph(keys,values,savename="image.png",bar_colors='black',label=N
   plt.barh(keys,values,color=bar_colors)
 
   # set the title
-  plt.title(savename, fontsize=18)
+  # replace underscores with spaces to make it pretty
+  title = savename.replace("_", " ")
+  plt.title(title, fontsize=18)
 
   # hide the top and right spines
   ax.spines['top'].set_visible(False)
@@ -174,6 +176,9 @@ def print_letter_occurrence_per_puzzle():
         bar_colors[i] = light_blue
       if letter in mfc or letter in mfv:
         bar_colors[i] = red
+
+    # replace spaces in category name with underscores
+    category = category.replace(" ", "_")
     
     print_barh_graph(keys,values,savename=category,bar_colors=bar_colors,label=label)
 

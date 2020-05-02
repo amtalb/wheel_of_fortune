@@ -1,9 +1,6 @@
-# TODO analyze based on category, note weird categories in README
 # TODO compare actual guessed letters with best letters
 # TODO write functions to print categories and letters
-# TODO organize code
 # TODO comment
-# TODO remove spaces from image names
 
 
 import pandas
@@ -23,26 +20,8 @@ def guessed_letter_occurrence():
   letters = letters.dropna()
   print(letters.stack().value_counts())
 
-def print_overall_letter_occurrence():
-  puzzles = df['Puzzle']
-  alphabet = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K', 'M', 'O', 'P', 'Q', 'U', 'V', 'W', 'X', 'Y', 'Z']
-  count_list = []
 
-  for letter in alphabet:
-    count_list.append(puzzles.str.count(letter).sum())
-
-  print_barh_graph(alphabet, count_list, savename="Letters")
-
-def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
-  # set the colors of the bars
-  # vowels are colored lighter if it is a category graph
-  bar_colors = ['#483D8B']*20
-  light_blue = '#00BFFF' 
-  bar_colors[0] = light_blue
-  bar_colors[7] = light_blue
-  bar_colors[11] = light_blue
-  bar_colors[14] = light_blue
-
+def print_barh_graph(keys,values,savename="image.png",bar_colors='black',label=None):
   # instantiate figure and axes
   # also set figure size
   fig, ax = plt.subplots(figsize=(8,6))
@@ -69,15 +48,15 @@ def print_barh_graph(keys,values,savename="image.png",most_frequent_l=[]):
   ax.spines['left'].set_bounds(0, (len(keys)-1))
 
   # set prettier bounds on x axis
-  ax.spines['bottom'].set_smart_bounds(True)
+  ax.margins(0)
 
   # adjust placement of axes
   ax.spines['bottom'].set_position(('axes', 0.02))
   ax.spines['left'].set_position(('axes', -0.01))
 
-  # if this is a category plot, add a text with the 3 most common consonants and the most common vowel
-  if len(most_frequent_l)>0: 
-    plt.text(0.85, 1.02, 'Most Frequent\n' + str(most_frequent_l), transform=plt.gca().transAxes)
+  # display the label
+  if label:
+    plt.text(0.85, 1.02, 'Most Frequent\n' + label, transform=plt.gca().transAxes)
 
   # invert the axis so A is on top and Z is on the bottom
   plt.gca().invert_yaxis()
@@ -112,43 +91,92 @@ def get_most_frequent_vowel(counter):
   
   return top_vowel
 
-def print_letter_occurrence_per_puzzle():
-  def remove_counter_character(char):
-    if char in counter:
-      counter.pop(char)
+# prints a graph that is the sum of all letter occurrences in all puzzles
+def print_overall_letter_occurrence():
+  puzzles = df['Puzzle']
+  alphabet = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K', 'M', 'O', 'P', 'Q', 'U', 'V', 'W', 'X', 'Y', 'Z']
+  count_list = []
 
+  # set bar colors
+  bar_colors = ['#483D8B']*26
+  # vowels are light blue
+  light_blue = '#00BFFF' 
+  # color vowels differently
+  vowels = ['A','E','I','O','U']
+  for i,letter in enumerate(alphabet):
+    if letter in vowels:
+      bar_colors[i] = light_blue
+
+  # get values for plotting (x-axis)
+  for letter in alphabet:
+    count_list.append(puzzles.str.count(letter).sum())
+
+  print_barh_graph(alphabet, count_list, savename="Letters", bar_colors=bar_colors)
+
+# prints a graph for each Category displaying the frequency of each
+# letter in the puzzles in that Category
+def print_letter_occurrence_per_puzzle():
+  # subclass Counter class
+  class my_counter(Counter):
+    # add method to check if a char exists, then remove it
+    def remove_counter_character(self, char):
+      if char in self:
+        self.pop(char)
+
+  # loop through each category in the dataframe
   for category in df['Category'].unique():
-    counter = Counter(A=0, B=0, C=0, D=0, F=0, G=0, H=0, I=0, J=0, K=0, M=0, O=0, P=0, Q=0, U=0, V=0, W=0, X=0, Y=0, Z=0)
+    # create a counter that counts every letter in the alphabet
+    counter = my_counter(A=0, B=0, C=0, D=0, F=0, G=0, H=0, I=0, J=0, K=0, M=0, O=0, P=0, Q=0, U=0, V=0, W=0, X=0, Y=0, Z=0)
     puzzles = df.loc[df['Category'] == category, 'Puzzle']
+    # count the letter occurrences in each puzzle
     for row in puzzles:
       counter.update(row)
 
-    remove_counter_character('?')
-    remove_counter_character('&')
-    remove_counter_character('\'')
-    remove_counter_character('-')
-    remove_counter_character(' ')
-    remove_counter_character('R')
-    remove_counter_character('S')
-    remove_counter_character('T')
-    remove_counter_character('L')
-    remove_counter_character('N')
-    remove_counter_character('E')
+    # remove all punctuation and given letters
+    counter.remove_counter_character('?')
+    counter.remove_counter_character('&')
+    counter.remove_counter_character('\'')
+    counter.remove_counter_character('-')
+    counter.remove_counter_character(' ')
+    counter.remove_counter_character('R')
+    counter.remove_counter_character('S')
+    counter.remove_counter_character('T')
+    counter.remove_counter_character('L')
+    counter.remove_counter_character('N')
+    counter.remove_counter_character('E')
 
-    most_frequent_l = []
-    most_frequent_l += get_most_frequent_consonants(counter)
-    most_frequent_l += get_most_frequent_vowel(counter)
+    # put 3 most common consonants and most common vowel
+    # into a label to display on the graph
+    mfc = get_most_frequent_consonants(counter)
+    mfv = get_most_frequent_vowel(counter)
+    label = ' '.join([str(elem) for elem in mfc]) 
+    label += ' '
+    label += ' '.join([str(elem) for elem in mfv]) 
 
+    # extract keys and values from Counter object
     count_list = list(counter.items())
     count_list = [list(i) for i in count_list]
     count_list.sort()
     keys = [i[0] for i in count_list]
     values = [i[1] for i in count_list]
 
-    # remove spaces from save name
-    category = category.replace(' ', '_')
-
-    print_barh_graph(keys,values,savename=category,most_frequent_l=most_frequent_l)
+    # set bar colors
+    bar_colors = ['#483D8B'] * 26
+    # vowels are light blue
+    light_blue = '#00BFFF' 
+    # most common letters are red
+    red = '#FF4C4C'
+    # given letters are faded
+    fade = '30'
+    # lists
+    vowels = ['A','E','I','O','U'] 
+    for i,letter in enumerate(keys):
+      if letter in vowels:
+        bar_colors[i] = light_blue
+      if letter in mfc or letter in mfv:
+        bar_colors[i] = red
+    
+    print_barh_graph(keys,values,savename=category,bar_colors=bar_colors,label=label)
 
 print_overall_letter_occurrence()
 #print_category_occurrence()

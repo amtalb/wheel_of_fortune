@@ -24,10 +24,10 @@ This shows that the best letters to pick overall (other than the provided *R*, *
 
 However, there are some weird categories that are harder to prepare for. Take the 'Fictional Character' category for example:
 ![Fictional Character](graphs/Fictional_Character.png)  
-In this category, you are better off choosing *B*, *M*, *Y*, and *A* which is a little bizarre.
+In this category, you are better off choosing *B*, *M*, *P*, and *A* which is a little bizarre.
 
 If you are lucky, you will get a slightly easier category like 'What Are You Doing?':
-![What Are You Doing?](graphs/What_Are_You_Doing?.png)  
+![What Are You Doing?](graphs/What_Are_You_Doing%3F.png)  
 In this category, you can almost be sure that one of the words will be ending in "-ing", which is reflected in the graph. This means you can save your guesses for other letters.
 
 Letter distribution for all categories is shown in the [graphs](graphs/) directory.
